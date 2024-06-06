@@ -28,14 +28,25 @@ type NamespaceCleanerSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of NamespaceCleaner. Edit namespacecleaner_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// How long should namespace with no resource to be considered as stale
+	// +kubebuilder:validation:MinLength=0
+	// +kubebuilder:validation:Minimum=180
+	// +kubebuilder:example=190
+	// +kubebuilder:validation:Required
+	DeleteDeadLineSeconds *int `json:"deletedeadlineseconds"`
+
+	// List of Excluded Namespace from stale deletion
+	// +kubebuilder:validation:Optional
+	// kubebuilder:example=[default,foo,bar]
+	ExcludeNamespace []string `json:"excludenamespace,omitempty"`
 }
 
 // NamespaceCleanerStatus defines the observed state of NamespaceCleaner
 type NamespaceCleanerStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	DeleteCount int `json:"deletecount"`
 }
 
 //+kubebuilder:object:root=true
