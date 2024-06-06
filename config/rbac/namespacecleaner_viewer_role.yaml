@@ -1,0 +1,27 @@
+# permissions for end users to view namespacecleaners.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: namespacecleaner-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: kleaner
+    app.kubernetes.io/part-of: kleaner
+    app.kubernetes.io/managed-by: kustomize
+  name: namespacecleaner-viewer-role
+rules:
+- apiGroups:
+  - klean.kleaner.linuxdatahub.com
+  resources:
+  - namespacecleaners
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - klean.kleaner.linuxdatahub.com
+  resources:
+  - namespacecleaners/status
+  verbs:
+  - get

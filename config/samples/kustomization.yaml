@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- klean_v1alpha1_namespacecleaner.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples

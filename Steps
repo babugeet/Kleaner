@@ -1,0 +1,55 @@
+root@k8clusters31:~/Kleaner# operator-sdk init --domain kleaner.linuxdatahub.com --repo github.com/babugeet/kleaner          
+INFO[0000] Writing kustomize manifests for you to edit... 
+INFO[0000] Writing scaffold for you to edit...          
+INFO[0000] Get controller runtime:
+$ go get sigs.k8s.io/controller-runtime@v0.16.3 
+go: downloading sigs.k8s.io/controller-runtime v0.16.3
+go: downloading k8s.io/apimachinery v0.28.3
+go: downloading github.com/go-logr/logr v1.2.4
+go: downloading k8s.io/client-go v0.28.3
+go: downloading k8s.io/klog/v2 v2.100.1
+go: downloading k8s.io/api v0.28.3
+go: downloading github.com/evanphx/json-patch/v5 v5.6.0
+go: downloading gomodules.xyz/jsonpatch/v2 v2.4.0
+go: downloading k8s.io/apiextensions-apiserver v0.28.3
+go: downloading github.com/evanphx/json-patch v5.6.0+incompatible
+go: downloading k8s.io/component-base v0.28.3
+go: downloading golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e
+go: downloading k8s.io/kube-openapi v0.0.0-20230717233707-2695361300d9
+go: downloading golang.org/x/oauth2 v0.8.0
+INFO[0008] Update dependencies:
+$ go mod tidy           
+go: downloading github.com/onsi/ginkgo/v2 v2.11.0
+go: downloading github.com/onsi/gomega v1.27.10
+go: downloading github.com/stretchr/testify v1.8.2
+go: downloading github.com/go-logr/zapr v1.2.4
+go: downloading go.uber.org/zap v1.25.0
+go: downloading go.uber.org/goleak v1.2.1
+go: downloading go.uber.org/multierr v1.11.0
+go: downloading golang.org/x/tools v0.9.3
+go: downloading golang.org/x/mod v0.10.0
+go: downloading github.com/benbjohnson/clock v1.3.0
+Next: define a resource with:
+$ operator-sdk create api
+
+
+
+root@k8clusters31:~/Kleaner# operator-sdk create api --group klean --version v1alpha1 --kind NamespaceCleaner  --resource --controller
+INFO[0000] Writing kustomize manifests for you to edit... 
+INFO[0000] Writing scaffold for you to edit...          
+INFO[0000] api/v1alpha1/namespacecleaner_types.go       
+INFO[0000] api/v1alpha1/groupversion_info.go            
+INFO[0000] internal/controller/suite_test.go            
+INFO[0000] internal/controller/namespacecleaner_controller.go 
+INFO[0000] internal/controller/namespacecleaner_controller_test.go 
+INFO[0000] Update dependencies:
+$ go mod tidy           
+INFO[0000] Running make:
+$ make generate                
+mkdir -p /root/Kleaner/bin
+test -s /root/Kleaner/bin/controller-gen && /root/Kleaner/bin/controller-gen --version | grep -q v0.13.0 || \
+GOBIN=/root/Kleaner/bin go install sigs.k8s.io/controller-tools/cmd/controller-gen@v0.13.0
+/root/Kleaner/bin/controller-gen object:headerFile="hack/boilerplate.go.txt" paths="./..."
+Next: implement your new API and generate the manifests (e.g. CRDs,CRs) with:
+$ make manifests
+root@k8clusters31:~/Kleaner# 

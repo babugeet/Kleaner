@@ -1,0 +1,31 @@
+# permissions for end users to edit namespacecleaners.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: namespacecleaner-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: kleaner
+    app.kubernetes.io/part-of: kleaner
+    app.kubernetes.io/managed-by: kustomize
+  name: namespacecleaner-editor-role
+rules:
+- apiGroups:
+  - klean.kleaner.linuxdatahub.com
+  resources:
+  - namespacecleaners
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - klean.kleaner.linuxdatahub.com
+  resources:
+  - namespacecleaners/status
+  verbs:
+  - get
