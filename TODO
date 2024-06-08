@@ -1,0 +1,25 @@
+Webserver operator
+
+
+This operator will simply spawn a webserver and give access externally, Just to test the connectivity
+
+
+It should create a deployment with 
+    user provided image
+    user desired replica
+It should create a service with 
+    user provided port 
+    target port (optional)
+It should create an ingress
+    user defined things
+It should create a cm
+
+It can gave a secret
+
+
+
+Future scope
+
+
+
+     
