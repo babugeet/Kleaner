@@ -11,6 +11,9 @@ spec:
     kind: Webserver
     listKind: WebserverList
     plural: webservers
+    shortNames:
+    - ws
+    - wss
     singular: webserver
   scope: Namespaced
   versions:
@@ -48,6 +51,7 @@ spec:
                 type: object
               int:
                 example: 3
+                format: int32
                 type: integer
               namespace:
                 description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster

@@ -45,3 +45,5 @@ Project two: Namespace syncer
 Project three: Canary operator
 
 will copy the deployment and will change the image and all.. rest , TBD
+
+Project four: keycloak operator, all the usecases as one crd

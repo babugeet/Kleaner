@@ -32,7 +32,7 @@ type WebserverSpec struct {
 	Image string `json:"image"`
 	// +kubebuilder:validation:Required
 	// +kubebuilder:example=3
-	Replica int `json:"int"`
+	Replica *int32 `json:"int"`
 	// +kubebuilder:validation:Required
 	ServiceType ServiceSpec `json:"servicetype"`
 	// +kubebuilder:validation:Required
@@ -72,6 +72,7 @@ type WebserverStatus struct {
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
+// +kubebuilder:resource:path=webservers,shortName=ws;wss,singular=webserver
 
 // Webserver is the Schema for the webservers API
 type Webserver struct {
