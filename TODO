@@ -21,5 +21,27 @@ It can gave a secret
 Future scope
 
 
+The yaml :
 
+name:
+image:
+replica:
+servicetype:
+    port:
+    <!-- <if targert port is not there, then give port only> -->
+    targetPort:
+
+ingress:
+    hostname:
+    path:
+    <!-- Not now, lets see how the addition works -->
+    protocol:
+
+#TODO: need to do more on the validation, and how this is happening https://github.com/moonbeam-nyc/snorlax/blob/76c75f2869aba8cd6be211edfef3d602db382738/operator/api/v1beta1/sleepschedule_types.go#L43
+
+
+Project two: Namespace syncer
      
+Project three: Canary operator
+
+will copy the deployment and will change the image and all.. rest , TBD

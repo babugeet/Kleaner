@@ -1,0 +1,12 @@
+apiVersion: ldhctlr.linuxdatahub.com/v1alpha1
+kind: Webserver
+metadata:
+  labels:
+    app.kubernetes.io/name: webserver
+    app.kubernetes.io/instance: webserver-sample
+    app.kubernetes.io/part-of: kleaner
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: kleaner
+  name: webserver-sample
+spec:
+  # TODO(user): Add fields here
