@@ -32,7 +32,7 @@ type WebserverSpec struct {
 	Image string `json:"image"`
 	// +kubebuilder:validation:Required
 	// +kubebuilder:example=3
-	Replica *int32 `json:"int"`
+	Replica *int32 `json:"replica"`
 	// +kubebuilder:validation:Required
 	ServiceType ServiceSpec `json:"servicetype"`
 	// +kubebuilder:validation:Required

@@ -1,0 +1,17 @@
+  apiVersion: ldhctlr.linuxdatahub.com/v1alpha1
+  kind: Webserver
+  metadata:
+    name:  name
+    namespace: default
+  spec:
+    image: "quay.io/jitesoft/nginx"
+    ingres:
+      host: "sample"
+      path: "/"
+    replica: 1
+    namespace: default
+    servicetype:
+      port : 80
+      targerport: 80
+      type: ClusterIP
+

@@ -88,7 +88,11 @@ func (r *WebserverReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	}
 	if err != nil && client.IgnoreNotFound(err) == nil {
 		fmt.Println("Creating deployment")
-		r.Client.Create(ctx, deployment)
+		if err := r.Client.Create(ctx, deployment); err != nil {
+			fmt.Println(err.Error())
+			return ctrl.Result{}, err
+		}
+
 	}
 
 	Webserver.Status.Deployment = deployment.Name
@@ -119,7 +123,8 @@ func (r *WebserverReconciler) SetupWithManager(mgr ctrl.Manager) error {
 func WebserverDeployment(ws *ldhctlrv1alpha1.Webserver) *appsv1.Deployment {
 	return &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: fmt.Sprintf("%s-ws-test", ws.Name),
+			Name:      fmt.Sprintf("%s-ws-test", ws.Name),
+			Namespace: ws.Namespace,
 		},
 		Spec: appsv1.DeploymentSpec{
 			Replicas: ws.Spec.Replica,

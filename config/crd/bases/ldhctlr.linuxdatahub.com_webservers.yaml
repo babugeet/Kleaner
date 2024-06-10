@@ -49,14 +49,14 @@ spec:
                 - host
                 - path
                 type: object
-              int:
-                example: 3
-                format: int32
-                type: integer
               namespace:
                 description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
                   Important: Run "make" to regenerate code after modifying this file'
                 type: string
+              replica:
+                example: 3
+                format: int32
+                type: integer
               servicetype:
                 properties:
                   port:
@@ -80,8 +80,8 @@ spec:
             required:
             - image
             - ingres
-            - int
             - namespace
+            - replica
             - servicetype
             type: object
           status:
