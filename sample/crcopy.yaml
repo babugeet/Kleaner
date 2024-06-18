@@ -1,0 +1,17 @@
+  apiVersion: ldhctlr.linuxdatahub.com/v1alpha1
+  kind: Webserver
+  metadata:
+    name:  name-alpha1
+    namespace: alpha
+  spec:
+    image: "quay.io/jitesoft/nginx"
+    ingres:
+      host: "sample.com"
+      path: "/uesse"
+    replica: 1
+    namespace: alpha
+    servicetype:
+      port : 80
+      targerport: 80
+      type: ClusterIP
+
