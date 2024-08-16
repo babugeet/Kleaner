@@ -18,18 +18,40 @@ package controller
 
 import (
 	"context"
+	"fmt"
 
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	ers "k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
+	"sigs.k8s.io/controller-runtime/pkg/builder"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/event"
+	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/log"
+	"sigs.k8s.io/controller-runtime/pkg/predicate"
 
 	ldhctlrv1alpha1 "github.com/babugeet/test-webserver-operator/api/v1alpha1"
 	"github.com/babugeet/test-webserver-operator/variables"
 )
+
+// Define a predicate to filter ConfigMap events
+var configMapPredicate = predicate.Funcs{
+	CreateFunc: func(e event.CreateEvent) bool {
+		return e.Object.GetName() == "my-config" && e.Object.GetNamespace() == "default"
+	},
+	UpdateFunc: func(e event.UpdateEvent) bool {
+		return e.ObjectNew.GetName() == "my-config" && e.ObjectNew.GetNamespace() == "default"
+	},
+	DeleteFunc: func(e event.DeleteEvent) bool {
+		return e.Object.GetName() == "my-config" && e.Object.GetNamespace() == "default"
+	},
+	GenericFunc: func(e event.GenericEvent) bool {
+		return e.Object.GetName() == "my-config" && e.Object.GetNamespace() == "default"
+	},
+}
 
 // WebserverReconciler reconciles a Webserver object
 type WebserverReconciler struct {
@@ -51,9 +73,11 @@ type WebserverReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.16.3/pkg/reconcile
 func (r *WebserverReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+	fmt.Println(req)
 	_ = log.FromContext(ctx)
 	// var Found bool
 	log.Log.Info("Reconcile loop triggered")
+
 	//
 	// 1. Get the webserver instance
 	Webserver := &ldhctlrv1alpha1.Webserver{}
@@ -89,5 +113,15 @@ func (r *WebserverReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&ldhctlrv1alpha1.Webserver{}).
 		Owns(&appsv1.Deployment{}).Owns(&corev1.Service{}).
+		Watches(
+			&corev1.ConfigMap{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "my-config",
+					Namespace: "default",
+				},
+			},
+			&handler.EnqueueRequestForObject{},
+			builder.WithPredicates(configMapPredicate),
+		).
 		Complete(r)
 }
